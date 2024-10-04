@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:pinokio/main_page.dart';
+// import 'package:pinokio/pages/home_page.dart';
+import "package:hive_flutter/hive_flutter.dart";
 // import 'package:flutter/services.dart';
 // import './home_page.dart';
-import './diary.dart';
+// import './diary.dart';
 
-void main() {
+void main() async {
   // runApp(const DiaryApp());
+  await Hive.initFlutter();
+  await Hive.openBox('mybox');
   runApp(const Pinokio());
 }
 
