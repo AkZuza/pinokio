@@ -80,14 +80,16 @@ class _DiaryState extends State<DiaryPage> {
                     child: Container(
                       height: 30,
                       width: 30,
-                      decoration: BoxDecoration(
-                        color: Colors.lightBlue,
-                        borderRadius: BorderRadius.circular(30),
-                      ),
+                      // decoration: BoxDecoration(
+                      //   color: Colors.lightBlue,
+                      //   borderRadius: BorderRadius.circular(30),
+                      // ),
                       child: Icon(
                         Icons.add,
                         color: Colors.white,
                         size: 20,
+                        //ashwin what does 10^-23 mean?
+                        //its 2e-3 some random
                       ),
                     ),
                   ),
