@@ -32,7 +32,7 @@ class ToDoTile extends StatelessWidget {
         ]),
         child: Container(
           decoration: BoxDecoration(
-            color: Colors.yellow,
+            color: Colors.brown[200],
             borderRadius: BorderRadius.all(Radius.circular(10)),
           ),
           padding: EdgeInsets.all(20),
@@ -42,7 +42,7 @@ class ToDoTile extends StatelessWidget {
                 value: taskCompleted,
                 onChanged: onChanged,
                 activeColor: Colors.black,
-                checkColor: Colors.yellow,
+                checkColor: Colors.white,
               ),
               Text(
                 taskName,

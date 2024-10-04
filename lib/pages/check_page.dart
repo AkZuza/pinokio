@@ -67,22 +67,25 @@ class _CheckPageState extends State<CheckPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        floatingActionButton: FloatingActionButton(
-          onPressed: addElement,
-          elevation: 0,
-          child: Icon(Icons.add),
-        ),
-        body: ListView.builder(
-          itemCount: db.toDoList.length,
-          itemBuilder: (context, index) {
-            return ToDoTile(
-              taskName: db.toDoList[index][0],
-              taskCompleted: db.toDoList[index][1],
-              // onChanged: (value) => {},
-              onChanged: (value) => checkBoxChanged(value, index),
-              deleteTask: (context) => deleteTask(index),
-            );
-          },
-        ));
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.brown[400],
+        onPressed: addElement,
+        elevation: 0,
+        child: Icon(Icons.add),
+      ),
+      body: ListView.builder(
+        itemCount: db.toDoList.length,
+        itemBuilder: (context, index) {
+          return ToDoTile(
+            taskName: db.toDoList[index][0],
+            taskCompleted: db.toDoList[index][1],
+            // onChanged: (value) => {},
+            onChanged: (value) => checkBoxChanged(value, index),
+            deleteTask: (context) => deleteTask(index),
+          );
+        },
+      ),
+      backgroundColor: Colors.white,
+    );
   }
 }
