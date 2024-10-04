@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:pinokio/data/database.dart';
+import 'package:pinokio/models/message.dart';
 
 AppBar diaryAppBar = AppBar(
   title: Text("Diary"),
@@ -13,6 +16,20 @@ class DiaryPage extends StatefulWidget {
 }
 
 class _DiaryState extends State<DiaryPage> {
+  TextEditingController textEditingController = TextEditingController();
+  var db = DiaryDataBase();
+
+  @override
+  void initState() {
+    var box = Hive.box('mybox');
+    if (box.get('diary') == null) {
+      box.put('diary', []);
+    }
+
+    db.loadData();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,7 +37,14 @@ class _DiaryState extends State<DiaryPage> {
         body: Column(
           children: [
             // Main content of your screen
-            Expanded(child: Center(child: Text('Main Content'))),
+
+            Expanded(
+              child: ListView.builder(
+                  itemCount: db.messages.length,
+                  itemBuilder: (context, index) {
+                    return Text(db.messages[index]);
+                  }),
+            ),
 
             // Bottom row container
             Container(
@@ -31,6 +55,7 @@ class _DiaryState extends State<DiaryPage> {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
                       child: TextField(
+                        controller: textEditingController,
                         style: TextStyle(color: Colors.black),
                         decoration: InputDecoration(
                           hintText: 'Dear Diary...',
@@ -43,7 +68,14 @@ class _DiaryState extends State<DiaryPage> {
                     ),
                   ),
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      var entry = textEditingController.text;
+                      db.messages.add(entry);
+                      db.updateDatabase();
+                      textEditingController.clear();
+
+                      setState(() {});
+                    },
                     icon: Icon(Icons.send),
                     color: Colors.brown,
                   )

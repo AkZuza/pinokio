@@ -9,7 +9,7 @@ class ToDoDataBase {
   void createInitialData() {
     toDoList = [
       ["Wake up", true],
-      ["Sleep", false]
+      ["Meow", false]
     ];
   }
 
@@ -19,5 +19,18 @@ class ToDoDataBase {
 
   void updateDatabase() {
     _myBox.put("TODOLIST", toDoList);
+  }
+}
+
+class DiaryDataBase {
+  List messages = [];
+  final _myBox = Hive.box('mybox');
+
+  void loadData() {
+    messages = _myBox.get('diary');
+  }
+
+  void updateDatabase() {
+    _myBox.put('diary', messages);
   }
 }
