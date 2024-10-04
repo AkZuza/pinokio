@@ -1,9 +1,4 @@
-// import 'dart:math';
 import 'package:flutter/material.dart';
-// import 'UI/widgets/search_and_menu.dart';
-// import 'UI/widgets/front_view.dart';
-// import 'UI/widgets/back_view.dart';
-// import 'UI/widgets/action_buttons.dart';
 
 final Color primaryColor = Color(0xff91735F);
 final Color secondaryColor = Color(0xffd2bba0);
@@ -13,7 +8,12 @@ final Color textColor = Color.fromARGB(255, 101, 76, 59);
 
 final Color textColor2 = Color.fromARGB(255, 197, 177, 162);
 
-void openDrawer() {}
+// Function to process user input with AI (replace with your actual implementation)
+Future<String> processEntry(String text) async {
+  // Simulate AI processing
+  await Future.delayed(const Duration(seconds: 1)); // Simulate processing time
+  return "AI Analysis: $text seems like a positive entry.";
+}
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -23,6 +23,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final TextEditingController _textController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
@@ -36,14 +38,23 @@ class _HomePageState extends State<HomePage> {
         ),
         backgroundColor: primaryColor,
         leading: Builder(
-            builder: (context) => IconButton(
-                  icon: const Icon(Icons.menu),
-                  onPressed: () => Scaffold.of(context).openDrawer(),
-                )),
+          builder: (context) => IconButton(
+            icon: const Icon(Icons.menu),
+            onPressed: () => Scaffold.of(context).openDrawer(),
+          ),
+        ),
         actions: [
           IconButton(
-            onPressed: () => {},
-            icon: Icon(Icons.mic),
+            onPressed: () async {
+              final processedText = await processEntry(_textController.text);
+              // Display AI analysis below the text field
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(processedText),
+                ),
+              );
+            },
+            icon: Icon(Icons.mic_rounded),
             color: secondaryColor,
             iconSize: 30,
           ),
@@ -59,19 +70,21 @@ class _HomePageState extends State<HomePage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Align(
-                    alignment: Alignment(0, 0),
+                    alignment: Alignment.topLeft,
                     child: Text(
                       "Dear Diary,",
                       style: TextStyle(fontSize: 40, color: textColor),
                     ),
                   ),
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: TextField(
-                      style: TextStyle(color: textColor),
-                      maxLines: null,
+                  TextField(
+                    controller: _textController,
+                    style: TextStyle(color: textColor),
+                    maxLines: null,
+                    decoration: InputDecoration(
+                      hintText: 'Write your thoughts here...',
+                      hintStyle: TextStyle(color: textColor2),
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
@@ -79,17 +92,19 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       drawer: Drawer(
-          child: ListView(
-        padding: EdgeInsets.zero,
-        children: [
-          const DrawerHeader(
-            decoration: BoxDecoration(
-              color: Colors.blue,
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            const DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.blue,
+              ),
+              child: Text("Menu"),
             ),
-            child: Text("Drawer Element"),
-          )
-        ],
-      )),
+            // Add additional drawer items for settings, analysis history, etc.
+          ],
+        ),
+      ),
     );
   }
 }
