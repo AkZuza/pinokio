@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pinokio/navigation/destinations.dart';
 import 'package:pinokio/pages/checklist_page.dart';
 import 'package:pinokio/pages/diary_page.dart';
+import 'package:pinokio/pages/home_page.dart';
 import 'package:pinokio/pages/notes_page.dart';
 
 class MainPage extends StatefulWidget {
@@ -21,7 +22,7 @@ class _MainPageState extends State<MainPage> {
   }
 
   final List appBars = [notesAppBar, diaryAppBar, checklistAppBar];
-  final List screens = [NotesPage(), DiaryPage(), ChecklistPage()];
+  final List screens = [NotesPage(), DiaryPage(), CheckPage()];
 
   @override
   Widget build(BuildContext context) {
