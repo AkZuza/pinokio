@@ -33,7 +33,7 @@ class _DiaryState extends State<DiaryPage> {
                       child: TextField(
                         style: TextStyle(color: Colors.black),
                         decoration: InputDecoration(
-                          hintText: 'Enter text here',
+                          hintText: 'Dear Diary...',
                           contentPadding: EdgeInsets.only(left: 30.0),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(30.0),
