@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/hive_flutter.dart';
-import 'package:pinokio/data/database.dart';
 import 'package:pinokio/models/message.dart';
+import 'package:pinokio/data/database.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 AppBar diaryAppBar = AppBar(
   title: Text("Diary"),
@@ -33,56 +33,94 @@ class _DiaryState extends State<DiaryPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
-        body: Column(
-          children: [
-            // Main content of your screen
-
-            Expanded(
-              child: ListView.builder(
-                  itemCount: db.messages.length,
-                  itemBuilder: (context, index) {
-                    return Text(db.messages[index]);
-                  }),
-            ),
-
-            // Bottom row container
-            Container(
-              height: 60, // Adjust height as needed
+      backgroundColor: Colors.white,
+      body: Stack(
+        children: <Widget>[
+          ListView.builder(
+            scrollDirection: Axis.vertical,
+            itemCount: messages.length,
+            shrinkWrap: true,
+            padding: EdgeInsets.only(top: 10, bottom: 10),
+            itemBuilder: (context, index) {
+              return Container(
+                padding:
+                    EdgeInsets.only(left: 14, right: 14, top: 10, bottom: 10),
+                child: Align(
+                  alignment: (messages[index].messageType == "receiver"
+                      ? Alignment.topLeft
+                      : Alignment.topRight),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: (messages[index].messageType == "receiver"
+                          ? Colors.grey.shade200
+                          : Colors.blue[200]),
+                    ),
+                    padding: EdgeInsets.all(16),
+                    child: Text(
+                      messages[index].messageContent,
+                      style: TextStyle(fontSize: 15),
+                    ),
+                  ),
+                ),
+              );
+            },
+          ),
+          Align(
+            alignment: Alignment.bottomLeft,
+            child: Container(
+              padding: EdgeInsets.only(left: 10, bottom: 10, top: 10),
+              height: 60,
+              width: double.infinity,
+              color: Colors.white,
               child: Row(
-                children: [
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: TextField(
-                        controller: textEditingController,
-                        style: TextStyle(color: Colors.black),
-                        decoration: InputDecoration(
-                          hintText: 'Dear Diary...',
-                          contentPadding: EdgeInsets.only(left: 30.0),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(30.0),
-                          ),
-                        ),
+                children: <Widget>[
+                  GestureDetector(
+                    onTap: () {},
+                    child: Container(
+                      height: 30,
+                      width: 30,
+                      decoration: BoxDecoration(
+                        color: Colors.lightBlue,
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      child: Icon(
+                        Icons.add,
+                        color: Colors.white,
+                        size: 20,
                       ),
                     ),
                   ),
-                  IconButton(
-                    onPressed: () {
-                      var entry = textEditingController.text;
-                      db.messages.add(entry);
-                      db.updateDatabase();
-                      textEditingController.clear();
-
-                      setState(() {});
-                    },
-                    icon: Icon(Icons.send),
-                    color: Colors.brown,
-                  )
+                  SizedBox(
+                    width: 15,
+                  ),
+                  Expanded(
+                    child: TextField(
+                      decoration: InputDecoration(
+                          hintText: "Write message...",
+                          hintStyle: TextStyle(color: Colors.white),
+                          border: InputBorder.none),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 15,
+                  ),
+                  FloatingActionButton(
+                    onPressed: () {},
+                    backgroundColor: Colors.blue,
+                    elevation: 0,
+                    child: Icon(
+                      Icons.send,
+                      color: Colors.white,
+                      size: 18,
+                    ),
+                  ),
                 ],
               ),
             ),
-          ],
-        ));
+          ),
+        ],
+      ),
+    );
   }
 }
