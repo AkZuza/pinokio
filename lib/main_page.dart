@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pinokio/navigation/destinations.dart';
 import 'package:pinokio/pages/checklist_page.dart';
 import 'package:pinokio/pages/diary_page.dart';
-import 'package:pinokio/pages/home_page.dart';
+import 'package:pinokio/pages/check_page.dart';
 import 'package:pinokio/pages/notes_page.dart';
 
 class MainPage extends StatefulWidget {
