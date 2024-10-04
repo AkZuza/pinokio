@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:pinokio/main_page.dart';
 // import 'package:flutter/services.dart';
 // import './home_page.dart';
-import './diary.dart';
 
 void main() {
   // runApp(const DiaryApp());
