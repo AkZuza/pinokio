@@ -1,9 +1,9 @@
 class Message {
-  final bool AI;
+  final bool ai;
   final String time;
   final String text;
   Message({
-    this.AI = false,
+    this.ai = false,
     this.time = "",
     this.text = "",
   });
@@ -11,7 +11,7 @@ class Message {
 
 List<Message> notes = [
   Message(
-    AI: false,
+    ai: false,
     time: "3:40",
     text: "Hey",
   )
