@@ -135,7 +135,7 @@ class _DiaryState extends State<DiaryPage> {
                       setState(() {
                         messages.add(ChatMessage(
                             messageContent: json["message"],
-                            messageType: "reciever"));
+                            messageType: "receiver"));
                       });
                       textEditingController.clear();
                     },

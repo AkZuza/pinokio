@@ -3,7 +3,7 @@ import 'package:pinokio/navigation/destinations.dart';
 import 'package:pinokio/pages/checklist_page.dart';
 import 'package:pinokio/pages/diary_page.dart';
 import 'package:pinokio/pages/check_page.dart';
-import 'package:pinokio/pages/notes_page.dart';
+import 'package:pinokio/pages/notes_page_2.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});

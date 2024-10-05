@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:pinokio/data/database.dart';
-import 'package:pinokio/models/message.dart';
 
 AppBar diaryAppBar = AppBar(
   title: Text("Diary"),
@@ -47,7 +46,7 @@ class _DiaryState extends State<DiaryPage> {
             ),
 
             // Bottom row container
-            Container(
+            SizedBox(
               height: 60, // Adjust height as needed
               child: Row(
                 children: [
