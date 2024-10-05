@@ -24,6 +24,15 @@ Pinokio is a comprehensive note-taking and diary app that leverages the power of
 3. **Customize Schedule:** Modify the generated schedule to fit your preferences and priorities.
 4. **Track Progress:** Use the built-in checklist feature to track your progress on tasks.
 
+### **Deployment**
+
+1. Install [Ollama](https://ollama.com/download) for your respective operating system
+2. execute "pip install -r requirements.txt"
+3. execute "ollama pull llama3.1:8b"
+4. execute "ollama create pinokio -f ./myllamaa3.1.modelfile"
+5. run "python3 test.py" to start the server for the application to perform REST actions
+6. Run the flutter app on desired platform.
+
 ### **Future Enhancements**
 
 * **Natural Language Processing:** Improve the app's ability to understand and interpret user-generated text.
