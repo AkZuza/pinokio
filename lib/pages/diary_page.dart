@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:pinokio/models/message.dart';
 import 'package:pinokio/data/database.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:http/http.dart' as http;
 
 AppBar diaryAppBar = AppBar(
   title: Text("Diary"),
@@ -18,6 +21,8 @@ class DiaryPage extends StatefulWidget {
 class _DiaryState extends State<DiaryPage> {
   TextEditingController textEditingController = TextEditingController();
   var db = DiaryDataBase();
+
+  var messages = List<ChatMessage>.empty(growable: true);
 
   @override
   void initState() {
@@ -54,7 +59,7 @@ class _DiaryState extends State<DiaryPage> {
                       borderRadius: BorderRadius.circular(20),
                       color: (messages[index].messageType == "receiver"
                           ? Colors.grey.shade200
-                          : Colors.blue[200]),
+                          : Colors.brown[200]),
                     ),
                     padding: EdgeInsets.all(16),
                     child: Text(
@@ -75,32 +80,33 @@ class _DiaryState extends State<DiaryPage> {
               color: Colors.white,
               child: Row(
                 children: <Widget>[
-                  GestureDetector(
-                    onTap: () {},
-                    child: Container(
-                      height: 30,
-                      width: 30,
-                      // decoration: BoxDecoration(
-                      //   color: Colors.lightBlue,
-                      //   borderRadius: BorderRadius.circular(30),
-                      // ),
-                      child: Icon(
-                        Icons.add,
-                        color: Colors.white,
-                        size: 20,
-                        //ashwin what does 10^-23 mean?
-                        //its 2e-3 some random
-                      ),
-                    ),
-                  ),
+                  // GestureDetector(
+                  //   onTap: () {},
+                  //   child: Container(
+                  //     height: 30,
+                  //     width: 30,
+                  //     // decoration: BoxDecoration(
+                  //     //   color: Colors.lightBlue,
+                  //     //   borderRadius: BorderRadius.circular(30),
+                  //     // ),
+                  //     child: Icon(
+                  //       Icons.add,
+                  //       color: Colors.brown,
+                  //       size: 20,
+                  //       //ashwin what does 10^-23 mean?
+                  //       //its 2e-3 some random
+                  //     ),
+                  //   ),
+                  // ),
                   SizedBox(
                     width: 15,
                   ),
                   Expanded(
                     child: TextField(
+                      controller: textEditingController,
                       decoration: InputDecoration(
-                          hintText: "Write message...",
-                          hintStyle: TextStyle(color: Colors.white),
+                          hintText: "Dear Diary...",
+                          hintStyle: TextStyle(color: Colors.black),
                           border: InputBorder.none),
                     ),
                   ),
@@ -108,8 +114,32 @@ class _DiaryState extends State<DiaryPage> {
                     width: 15,
                   ),
                   FloatingActionButton(
-                    onPressed: () {},
-                    backgroundColor: Colors.blue,
+                    onPressed: () async {
+                      var entry = textEditingController.text;
+
+                      final jsonData = jsonEncode({"message": entry});
+                      final uri = "http://127.0.0.1:8000/greet?query=$jsonData";
+
+                      messages.add(ChatMessage(
+                          messageContent: entry, messageType: "sender"));
+                      db.messages.add(entry);
+
+                      setState(() {});
+
+                      var resp =
+                          await http.get(Uri.parse(uri)).whenComplete(() {});
+
+                      var json = jsonDecode(resp.body);
+
+                      db.updateDatabase();
+                      setState(() {
+                        messages.add(ChatMessage(
+                            messageContent: json["message"],
+                            messageType: "reciever"));
+                      });
+                      textEditingController.clear();
+                    },
+                    backgroundColor: Colors.brown,
                     elevation: 0,
                     child: Icon(
                       Icons.send,

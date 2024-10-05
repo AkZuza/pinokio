@@ -10,4 +10,5 @@ The output format of the schedule should be:
 If needed ask timing for certain stuff like Lunch, dinner, breakfast, only if needed
 
 [Task name].[StartTime-EndTime].[Day if its on a different day]
+Do not insert newlines as you please
 """
