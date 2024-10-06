@@ -2,6 +2,10 @@
 
 Pinokio is a comprehensive note-taking and diary app that leverages the power of AI to assist users in creating personalized schedules based on their daily entries. By integrating the Ollama framework with the Llama3.1 model, Pinokio is able to analyze user-generated text and extract key information to generate tailored task checklists and schedules.
 
+**UI Design**: here is the figma link for a basic look into what pinokio's UI is supposed to look like-
+https://www.figma.com/design/OjaIdONcKzwVwO17RG1Y3r/Pinokio?node-id=0-1&t=5EJdxVKClAB7uPfs-1
+
+
 ### **Key Features**
 
 * **Note-Taking and Diary:** Pinokio provides a user-friendly interface for capturing notes and diary entries.
